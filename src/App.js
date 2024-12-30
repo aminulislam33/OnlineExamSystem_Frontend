@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import StudentDashboard from "./pages/StudentDashboard";
+import ExamInterface from "./pages/ExamInterface";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/user/login" element={<Login />} />
+          <Route path="/user/signup" element={<Signup />} />
+          <Route path="/student/dashboard" element={<StudentDashboard />} />
+          <Route path="/student/exam/start/:examId" element={<ExamInterface />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
