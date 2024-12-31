@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import React, { useContext } from "react";
-import './Navbar.css'
+import '../styles/Navbar.css'
 
 function Navbar() {
   const { isLoggedIn, logout } = useContext(AuthContext);

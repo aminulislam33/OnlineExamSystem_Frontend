@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import api from "../services/AxiosInstance";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -12,7 +13,7 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/api/auth/login", { email, password });
+      const response = await api.post("/auth/login", { email, password });
       setMessage(response.data.message);
       login(response.data.token);
       navigate("/student/dashboard");

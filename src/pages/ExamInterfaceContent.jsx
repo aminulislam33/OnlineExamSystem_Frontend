@@ -2,13 +2,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import api from "../services/AxiosInstance";
 
 const ExamInterfaceContent = ({ examData }) => {
   const { examId } = useParams();
+  const [message, setMessage] = useState("");
   const { token } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // Initialize states
   const [timeRemaining, setTimeRemaining] = useState(() => {
     const savedEndTime = localStorage.getItem(`exam_${examId}_endTime`);
     const currentEndTime = new Date(examData.endTime).getTime();
@@ -24,7 +25,6 @@ const ExamInterfaceContent = ({ examData }) => {
   });
 
   useEffect(() => {
-    // On component mount, load answered questions into the state
     if (answers.length > 0) {
       const answeredIndices = answers.map((answer) =>
         examData.questions.findIndex((q) => q._id === answer.questionId)
@@ -32,11 +32,9 @@ const ExamInterfaceContent = ({ examData }) => {
       setAnsweredQuestions(new Set(answeredIndices));
     }
 
-    // Store end time in localStorage
     const endTime = new Date(examData.endTime).getTime();
     localStorage.setItem(`exam_${examId}_endTime`, endTime);
 
-    // Timer logic
     const calculateRemainingTime = () =>
       Math.max(0, Math.floor((endTime - Date.now()) / 1000));
     setTimeRemaining(calculateRemainingTime());
@@ -72,7 +70,6 @@ const ExamInterfaceContent = ({ examData }) => {
     setAnswers(updatedAnswers);
     setAnsweredQuestions((prev) => new Set(prev).add(currentQuestionIndex));
 
-    // Save updated answers to localStorage
     localStorage.setItem(`exam_${examId}_answers`, JSON.stringify(updatedAnswers));
   };
 
@@ -83,8 +80,8 @@ const ExamInterfaceContent = ({ examData }) => {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/exam-taking/submit",
+      const response = await api.post(
+        "/exam-taking/submit",
         submissionData,
         {
           headers: {
@@ -93,11 +90,11 @@ const ExamInterfaceContent = ({ examData }) => {
         }
       );
       alert(response.data.message);
-      localStorage.removeItem(`exam_${examId}_answers`); // Clear answers from localStorage after submission
+      localStorage.removeItem(`exam_${examId}_answers`);
       navigate("/student/dashboard");
     } catch (error) {
       console.error("Error submitting exam:", error);
-      alert("There was an issue submitting the exam. Please try again.");
+      alert(error.response?.data?.message || "There was an issue submitting the exam. Please try again.");
     }
   };
 

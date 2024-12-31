@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import api from "../services/AxiosInstance";
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -34,8 +35,8 @@ function Signup() {
     }
 
     setLoading(true);
-    axios
-    .post("http://localhost:8000/api/auth/signup",formData)
+    api
+    .post("/auth/signup",formData)
     .then(res=>{
         setMessage(`${res.data.message}. Redirecting to login page...`);
         setTimeout(()=>{

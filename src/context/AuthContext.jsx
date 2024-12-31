@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, useMemo } from "react";
 import {jwtDecode} from "jwt-decode";
-import axios from "axios";
+import api from "../services/AxiosInstance";
 
 export const AuthContext = createContext();
 
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUserData = async (authToken) => {
     try {
-      const response = await axios.get("http://localhost:8000/api/profile/", {
+      const response = await api.get("/profile/", {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },

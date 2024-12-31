@@ -4,11 +4,14 @@ import { AuthContext } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import StartExamButton from "../services/StartExamButton";
+import { Navigate, useNavigate } from "react-router-dom";
+import api from "../services/AxiosInstance";
 
 function StudentDashboard() {
   const { token, authMessage, user } = useContext(AuthContext);
   const [upcomingExams, setUpcomingExams] = useState([]);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!token) {
@@ -18,7 +21,7 @@ function StudentDashboard() {
 
     const fetchDashboardData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/exams/upcoming", {
+        const response = await api.get("/exams/upcoming", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -57,6 +60,9 @@ function StudentDashboard() {
           <p>No upcoming exams.</p>
         )}
       </section>
+      <div>
+        <button onClick={()=>navigate("/student/dashboard/results")}>Results</button>
+      </div>
       <Footer />
     </div>
   );
