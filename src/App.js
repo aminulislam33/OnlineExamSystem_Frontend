@@ -1,6 +1,9 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import PageTitleUpdater from "./services/PageTitleUpdater";
 
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
@@ -14,6 +17,8 @@ function App() {
     <AuthProvider>
       <Router>
         <Suspense fallback={<div>Loading...</div>}>
+          <Navbar />
+          <PageTitleUpdater />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/user/login" element={<Login />} />
@@ -22,6 +27,7 @@ function App() {
             <Route path="/student/exam/start/:examId" element={<ExamInterface />} />
             <Route path="/student/dashboard/results" element={<Results />} />
           </Routes>
+          <Footer />
         </Suspense>
       </Router>
     </AuthProvider>

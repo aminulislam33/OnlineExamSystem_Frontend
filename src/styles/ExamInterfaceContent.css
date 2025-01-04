@@ -1,0 +1,108 @@
+.exam-interface {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.exam-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.exam-header h1 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.timer {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #d9534f;
+}
+
+.question-section {
+    margin-bottom: 20px;
+}
+
+.question-number h3 {
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+}
+
+.option {
+    margin-bottom: 10px;
+}
+
+.option input[type="radio"] {
+    margin-right: 10px;
+}
+
+.option label {
+    font-size: 1.125rem;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.navigation button {
+    font-size: 1rem;
+    padding: 10px 20px;
+}
+
+.navigation .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.navigation .btn-danger {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.navigation button:disabled {
+    background-color: #ddd;
+}
+
+.question-navigation {
+    margin-top: 20px;
+}
+
+.question-navigation h4 {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.question-navigation-buttons button {
+    margin: 5px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    font-size: 1rem;
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.question-navigation-buttons button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.question-navigation-buttons button.answered {
+    background-color: #28a745;
+    color: white;
+}
+
+.question-navigation-buttons button:disabled {
+    background-color: #ddd;
+}

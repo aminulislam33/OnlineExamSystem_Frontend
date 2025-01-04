@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import api from "../services/AxiosInstance";
+import "../styles/ExamInterfaceContent.css";
 
 const ExamInterfaceContent = ({ examData }) => {
   const { examId } = useParams();
@@ -15,6 +16,7 @@ const ExamInterfaceContent = ({ examData }) => {
       ? Math.max(0, Math.floor((savedEndTime - Date.now()) / 1000))
       : Math.max(0, Math.floor((currentEndTime - Date.now()) / 1000));
   });
+
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answeredQuestions, setAnsweredQuestions] = useState(new Set());
   const [answers, setAnswers] = useState(() => {
@@ -118,9 +120,12 @@ const ExamInterfaceContent = ({ examData }) => {
       </div>
 
       <div className="question-section">
-        <h3>
-          Question {currentQuestionIndex + 1}: {currentQuestion.text}
-        </h3>
+        <div className="question-number">
+          <h3>
+            Question {currentQuestionIndex + 1}: {currentQuestion.text}
+          </h3>
+        </div>
+
         {currentQuestion.options.map((option) => (
           <div key={option._id} className="option">
             <input
@@ -138,18 +143,20 @@ const ExamInterfaceContent = ({ examData }) => {
         <button
           onClick={() => setCurrentQuestionIndex((prev) => prev - 1)}
           disabled={currentQuestionIndex === 0}
+          className="btn btn-secondary"
         >
           Previous
         </button>
         <button
           onClick={() => setCurrentQuestionIndex((prev) => prev + 1)}
-          disabled={
-            currentQuestionIndex === examData.questions.length - 1
-          }
+          disabled={currentQuestionIndex === examData.questions.length - 1}
+          className="btn btn-secondary"
         >
           Next
         </button>
-        <button onClick={handleSubmit}>Submit</button>
+        <button onClick={handleSubmit} className="btn btn-danger">
+          Submit Exam
+        </button>
       </div>
 
       <div className="question-navigation">

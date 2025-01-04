@@ -1,0 +1,25 @@
+/* Ensure html and body take full height */
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Flexbox for page layout */
+#root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Main content should take remaining space */
+main {
+    flex: 1;
+}
+
+/* Footer styling */
+footer {
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    text-align: center;
+}

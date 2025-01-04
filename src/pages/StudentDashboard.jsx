@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useContext, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import StartExamButton from "../services/StartExamButton";
 import api from "../services/AxiosInstance";
 
@@ -42,34 +40,62 @@ function StudentDashboard() {
 
   const renderExams = useMemo(() => {
     return upcomingExams.map((exam) => (
-      <li key={exam._id}>
-        <h3>{exam.title}</h3>
-        <p>Date: {new Date(exam.startTime).toLocaleDateString()}</p>
-        <p>Duration: {exam.duration} minutes</p>
-        <StartExamButton examId={exam._id} />
-      </li>
+      <div key={exam._id} className="card mb-3 shadow-sm">
+        <div className="card-body">
+          <h5 className="card-title">{exam.title}</h5>
+          <p className="card-text">
+            <strong>Date:</strong> {new Date(exam.startTime).toLocaleDateString()}
+          </p>
+          <p className="card-text">
+            <strong>Duration:</strong> {exam.duration} minutes
+          </p>
+          <StartExamButton examId={exam._id} />
+        </div>
+      </div>
     ));
   }, [upcomingExams]);
 
   return (
-    <div>
-      <Navbar />
-      <h1>Welcome {user?.name || "User"}!</h1>
-      <section>
-        <h2>Upcoming Exams</h2>
-        {message && <p>{message}</p>}
-        {authMessage && <p>{authMessage}</p>}
-        {upcomingExams.length > 0 ? (
-          <ul>{renderExams}</ul>
-        ) : (
-          <p>No upcoming exams.</p>
-        )}
-      </section>
-      <div>
-        <button onClick={handleNavigateResults}>Results</button>
+    <>
+      <div className="container mt-4">
+        <h1 className="text-center mb-4">Welcome {user?.name || "Student"}!</h1>
+        <div className="row">
+          {/* Upcoming Exams Section */}
+          <div className="col-lg-8 col-md-12 mb-4">
+            <h2>Upcoming Exams</h2>
+            {message && <p className="text-danger">{message}</p>}
+            {authMessage && <p className="text-warning">{authMessage}</p>}
+            {upcomingExams.length > 0 ? (
+              <div>{renderExams}</div>
+            ) : (
+              <p className="text-muted">No upcoming exams.</p>
+            )}
+          </div>
+
+          {/* Navigation Section */}
+          <div className="col-lg-4 col-md-12">
+            <h2>Actions</h2>
+            <div className="d-grid gap-2">
+              <button
+                className="btn btn-primary mb-3"
+                onClick={() => navigate("/student/dashboard/profile")}
+              >
+                View Profile
+              </button>
+              <button className="btn btn-secondary mb-3" onClick={handleNavigateResults}>
+                View Results
+              </button>
+              <button
+                className="btn btn-danger mb-3"
+                onClick={() => navigate("/logout")}
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      <Footer />
-    </div>
+    </>
   );
 }
 
