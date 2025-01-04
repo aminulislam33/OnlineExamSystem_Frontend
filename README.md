@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# Online Exam System Frontend
+
+This project is the frontend part of the **Online Exam System** (OES) built with **React.js**. It allows students to register, log in, take exams, view results, and enables admins to manage questions and exams.
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -37,35 +41,115 @@ If you aren't satisfied with the build tool and configuration choices, you can `
 
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However, we understand that this tool wouldn't be useful if you couldn't customize it when you're ready for it.
 
-## Learn More
+## Features
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Student Authentication**: Register, log in, and take exams.
+- **Admin Dashboard**: Manage questions, create and manage exams.
+- **Results Page**: View exam results with detailed performance analytics.
+- **Protected Routes**: Only authenticated users can access certain pages.
+- **Question Management**: Add, update, and delete exam questions.
+- **Real-time Exam Timer**: Countdown timer for exam duration.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Technology Stack
 
-### Code Splitting
+- **Frontend**: React.js
+- **Routing**: React Router
+- **State Management**: Context API (for global state management)
+- **Styling**: CSS/SCSS (or any CSS framework you are using)
+- **API**: Axios (for making HTTP requests)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Folder Structure
 
-### Analyzing the Bundle Size
+- **/src**
+  - **/components**: Reusable components (e.g., Navbar, QuestionCard)
+  - **/context**: React Context for global state (e.g., AuthContext, ExamContext)
+  - **/pages**: Page components for different routes (e.g., Home, Login, StudentDashboard)
+  - **/services**: Axios instance for API calls
+  - **/styles**: Stylesheets for components and pages
+  - **/utils**: Utility functions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Setup Instructions
 
-### Making a Progressive Web App
+### 1. Clone the repository:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+git clone <repo_url>
+cd OnlineExamSystem_Frontend
+```
 
-### Advanced Configuration
+### 2. Install dependencies:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```bash
+npm install
+```
 
-### Deployment
+### 3. Run the app:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+npm start
+```
 
-### `npm run build` fails to minify
+This will start the React development server, and you can view the app at [http://localhost:3000](http://localhost:3000).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# OnlineExamSystem_Frontend
+### 4. Deployment:
+
+For deployment, we suggest using platforms like **Vercel** or **Netlify**. To deploy to **Vercel**, follow these steps:
+
+1. Install Vercel CLI globally:
+   ```bash
+   npm i -g vercel
+   ```
+
+2. Run the following command in the root directory of your project:
+   ```bash
+   vercel
+   ```
+
+   Follow the instructions to connect your GitHub repository and deploy your app.
+
+### 5. Additional Configuration (for API calls):
+
+Ensure your backend is running and accessible to make API calls. In the code, you can configure your **Axios instance** to point to the correct base URL of the backend API.
+
+For example, in `AxiosInstance.js`:
+```javascript
+const api = axios.create({
+  baseURL: 'https://your-backend-url.com/api', // replace with your backend URL
+  headers: {
+    'Content-Type': 'application/json',
+  }
+});
+```
+
+## Future Enhancements
+
+- **Add Exam Feedback**: Allow students to give feedback on exams.
+- **Leaderboard**: Display top-performing students based on their scores.
+- **Real-Time Notifications**: Notify users when their results are available or when exams are about to start.
+- **Admin Role**: Implement different levels of access for admins, such as super admins and regular admins.
+
+## Troubleshooting
+
+- If you face any issues while running the app, make sure:
+  - Your backend API is running and accessible.
+  - All environment variables are set correctly.
+  - Dependencies are installed (`npm install`).
+
+## Contributing
+
+If you'd like to contribute to this project, feel free to fork it and create a pull request. Here's how to contribute:
+
+1. Fork the repository.
+2. Clone your fork to your local machine.
+3. Create a new branch for your feature (`git checkout -b feature-name`).
+4. Commit your changes (`git commit -m 'Add new feature'`).
+5. Push to your fork (`git push origin feature-name`).
+6. Create a pull request from your fork's branch to the main repository.
+
+## License
+
+This project is open-source and available under the MIT License.
+```
+

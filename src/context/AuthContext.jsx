@@ -1,69 +1,97 @@
-import React, { createContext, useState, useEffect, useMemo } from "react";
-import {jwtDecode} from "jwt-decode";
+import React, { createContext, useState, useEffect, useMemo, useCallback } from "react";
+import { jwtDecode } from "jwt-decode";
 import api from "../services/AxiosInstance";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [token, setToken] = useState(localStorage.getItem("authToken"));
-  const [authMessage, setAuthMessage] = useState("");
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const validateToken = async () => {
-      if (token) {
-        try {
-          const decoded = jwtDecode(token);
-          if (decoded.exp * 1000 > Date.now()) {
-            setIsLoggedIn(true);
-            fetchUserData(token);
-          } else {
-            handleLogout();
-          }
-        } catch (error) {
-          console.error("Invalid token", error);
-          handleLogout();
-        }
-      }
-    };
-
-    validateToken();
-  }, [token]);
-
-  const fetchUserData = async (authToken) => {
+  const [authState, setAuthState] = useState({
+    isLoggedIn: false,
+    token: localStorage.getItem("authToken"),
+    authMessage: "",
+    user: null,
+    loading: true,
+  });
+  
+  const validateToken = useCallback(async (token) => {
     try {
-      const response = await api.get("/profile/", {
+      const decoded = jwtDecode(token);
+      if (decoded.exp * 1000 > Date.now()) {
+        setAuthState((prevState) => ({
+          ...prevState,
+          isLoggedIn: true,
+        }));
+        fetchUserData(authState.token);
+      } else {
+        handleLogout();
+      }
+    } catch (error) {
+      console.error("Invalid token", error);
+      handleLogout();
+    }
+  }, []);
+
+  const fetchUserData = useCallback(async (token) => {
+    try {
+      const response = await api.post("/profile", {}, {
         headers: {
-          Authorization: `Bearer ${authToken}`,
+          Authorization: `Bearer ${token}`,
         },
       });
-      setUser(response.data.data);
+      setAuthState((prevState) => ({
+        ...prevState,
+        user: response.data.data,
+        loading: false,
+      }));
     } catch (error) {
       console.error("Failed to fetch user data", error);
-      setAuthMessage("Failed to fetch user data. Please refresh.");
+      setAuthState((prevState) => ({
+        ...prevState,
+        authMessage: "Failed to fetch user data. Please refresh.",
+        loading: false,
+      }));
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (authState.token) {
+      validateToken(authState.token);
+    } else {
+      setAuthState((prevState) => ({ ...prevState, loading: false }));
+      handleLogout();
+    }
+  }, [authState.token, validateToken]);
 
   const login = (newToken) => {
     localStorage.setItem("authToken", newToken);
-    setToken(newToken);
-    setIsLoggedIn(true);
-    setAuthMessage("");
+    setAuthState({
+      isLoggedIn: true,
+      token: newToken,
+      authMessage: "",
+      user: null,
+      loading: true,
+    });
     fetchUserData(newToken);
   };
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
-    setToken(null);
-    setIsLoggedIn(false);
-    setUser(null);
-    setAuthMessage("You are logged out. Please log in.");
+    setAuthState({
+      isLoggedIn: false,
+      token: null,
+      authMessage: "You are logged out. Please log in.",
+      user: null,
+      loading: false,
+    });
   };
 
   const authContextValue = useMemo(
-    () => ({ isLoggedIn, token, user, login, logout: handleLogout, authMessage }),
-    [isLoggedIn, token, user, authMessage]
+    () => ({
+      ...authState,
+      login,
+      logout: handleLogout,
+    }),
+    [authState]
   );
 
   return (

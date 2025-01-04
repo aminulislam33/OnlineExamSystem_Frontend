@@ -1,12 +1,10 @@
 import { useParams, useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import api from "../services/AxiosInstance";
 
 const ExamInterfaceContent = ({ examData }) => {
   const { examId } = useParams();
-  const [message, setMessage] = useState("");
   const { token } = useContext(AuthContext);
   const navigate = useNavigate();
 

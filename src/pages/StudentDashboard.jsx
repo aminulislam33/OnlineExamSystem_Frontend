@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useContext } from "react";
-import axios from "axios";
+import React, { useEffect, useState, useContext, useCallback, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import StartExamButton from "../services/StartExamButton";
-import { Navigate, useNavigate } from "react-router-dom";
 import api from "../services/AxiosInstance";
 
 function StudentDashboard() {
@@ -37,6 +36,21 @@ function StudentDashboard() {
     fetchDashboardData();
   }, [token]);
 
+  const handleNavigateResults = useCallback(() => {
+    navigate("/student/dashboard/results");
+  }, [navigate]);
+
+  const renderExams = useMemo(() => {
+    return upcomingExams.map((exam) => (
+      <li key={exam._id}>
+        <h3>{exam.title}</h3>
+        <p>Date: {new Date(exam.startTime).toLocaleDateString()}</p>
+        <p>Duration: {exam.duration} minutes</p>
+        <StartExamButton examId={exam._id} />
+      </li>
+    ));
+  }, [upcomingExams]);
+
   return (
     <div>
       <Navbar />
@@ -46,22 +60,13 @@ function StudentDashboard() {
         {message && <p>{message}</p>}
         {authMessage && <p>{authMessage}</p>}
         {upcomingExams.length > 0 ? (
-          <ul>
-            {upcomingExams.map((exam) => (
-              <li key={exam._id}>
-                <h3>{exam.title}</h3>
-                <p>Date: {new Date(exam.startTime).toLocaleDateString()}</p>
-                <p>Duration: {exam.duration} minutes</p>
-                <StartExamButton examId={exam._id}/>
-              </li>
-            ))}
-          </ul>
+          <ul>{renderExams}</ul>
         ) : (
           <p>No upcoming exams.</p>
         )}
       </section>
       <div>
-        <button onClick={()=>navigate("/student/dashboard/results")}>Results</button>
+        <button onClick={handleNavigateResults}>Results</button>
       </div>
       <Footer />
     </div>
