@@ -23,7 +23,7 @@ function Navbar() {
             alt="AptiCrack Logo"
             style={{ height: "40px" }}
           />
-        </NavLink>
+        </NavLink>  
 
         {/* Toggler for mobile view */}
         <button

@@ -9,6 +9,7 @@ const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));
 const StudentDashboard = lazy(() => import("./pages/StudentDashboard"));
+const ProfilePage = lazy(() => import("./pages/Profile"));
 const ExamInterface = lazy(() => import("./pages/ExamInterface"));
 const Results = lazy(() => import("./pages/Results"));
 
@@ -24,6 +25,7 @@ function App() {
             <Route path="/user/login" element={<Login />} />
             <Route path="/user/signup" element={<Signup />} />
             <Route path="/student/dashboard" element={<StudentDashboard />} />
+            <Route path="/student/dashboard/profile" element={<ProfilePage />} />
             <Route path="/student/exam/start/:examId" element={<ExamInterface />} />
             <Route path="/student/dashboard/results" element={<Results />} />
           </Routes>

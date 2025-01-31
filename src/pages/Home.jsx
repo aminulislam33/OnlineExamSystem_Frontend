@@ -21,21 +21,21 @@ function Home() {
             <div className="carousel-inner">
               <div className="carousel-item active">
                 <img
-                  src="https://via.placeholder.com/1200x400?text=AptiCrack+Challenge+Awaits+You!"
+                  src="https://res.cloudinary.com/dwr8472qb/image/upload/v1737038866/pexels-alina-chernii-682289345-30186417_irmcek.jpg"
                   className="d-block w-100"
                   alt="AptiCrack Challenge"
                 />
               </div>
               <div className="carousel-item">
                 <img
-                  src="https://via.placeholder.com/1200x400?text=Boost+Your+Aptitude+Skills"
+                  src="https://res.cloudinary.com/dwr8472qb/image/upload/v1737038815/pexels-francesco-ungaro-28177041_fknc1g.jpg"
                   className="d-block w-100"
                   alt="Boost Your Skills"
                 />
               </div>
               <div className="carousel-item">
                 <img
-                  src="https://via.placeholder.com/1200x400?text=Compete+and+Shine+with+Peers"
+                  src="https://res.cloudinary.com/dwr8472qb/image/upload/v1737038815/pexels-jan-van-der-wolf-11680885-30053310_ghiird.jpg"
                   className="d-block w-100"
                   alt="Compete and Shine"
                 />
