@@ -85,12 +85,6 @@ function StudentDashboard() {
               <button className="btn btn-secondary mb-3" onClick={handleNavigateResults}>
                 View Results
               </button>
-              <button
-                className="btn btn-danger mb-3"
-                onClick={() => navigate("/logout")}
-              >
-                Logout
-              </button>
             </div>
           </div>
         </div>

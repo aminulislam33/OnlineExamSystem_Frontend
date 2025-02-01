@@ -1,88 +1,122 @@
-import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React from 'react';
+import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
 
-function Footer() {
+export default function App() {
   return (
-    <footer className="bg-dark text-light py-4 mt-5">
-      <div className="container">
-        <div className="row">
-          {/* About Section */}
-          <div className="col-md-4 mb-3">
-            <h5>About AptiCrack</h5>
-            <p>
-              AptiCrack is an initiative by the Electrical Engineer's Society to help students
-              sharpen their aptitude skills through weekly challenges and competitions.
-            </p>
-          </div>
+    <MDBFooter bgColor='light' className='text-center text-lg-start text-muted'>
+      <section className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom'>
+        <div className='me-5 d-none d-lg-block'>
+          <span>Get connected with us on social networks:</span>
+        </div>
 
-          {/* Quick Links Section */}
-          <div className="col-md-4 mb-3">
-            <h5>Quick Links</h5>
-            <ul className="list-unstyled">
-              <li>
-                <a href="/about" className="text-light text-decoration-none">
+        <div>
+          <a href='https://facebook.com/ees.iiests' className='me-4 text-reset' target='_blank' rel='noopener noreferrer'>
+            <MDBIcon fab icon="facebook-f" />
+          </a>
+          <a href='https://twitter.com/ees_iiests' className='me-4 text-reset' target='_blank' rel='noopener noreferrer'>
+            <MDBIcon fab icon="twitter" />
+          </a>
+          <a href='https://www.instagram.com/ees.iiests/' className='me-4 text-reset' target='_blank' rel='noopener noreferrer'>
+            <MDBIcon fab icon="instagram" />
+          </a>
+          <a href='https://linkedin.com/company/ees-iiests' className='me-4 text-reset' target='_blank' rel='noopener noreferrer'>
+            <MDBIcon fab icon="linkedin" />
+          </a>
+          <a href='https://github.com/ees-iiests' className='me-4 text-reset' target='_blank' rel='noopener noreferrer'>
+            <MDBIcon fab icon="github" />
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <MDBContainer className='text-center text-md-start mt-5'>
+          <MDBRow className='mt-3'>
+            <MDBCol md="3" lg="4" xl="3" className='mx-auto mb-4'>
+              <h6 className='text-uppercase fw-bold mb-4'>
+                <MDBIcon icon="bolt" className="me-3" />
+                Electrical Engineers' Society
+              </h6>
+              <p>
+                The Electrical Engineers' Society (EES) of IIEST Shibpur is a student-run organization that promotes
+                technical excellence, research, and innovation in the field of Electrical Engineering.
+              </p>
+            </MDBCol>
+
+            <MDBCol md="3" lg="2" xl="2" className='mx-auto mb-4'>
+              <h6 className='text-uppercase fw-bold mb-4'>Our Initiatives</h6>
+              <p>
+                <a href='#!' className='text-reset'>
+                  Sphuran - Tech Fest
+                </a>
+              </p>
+              <p>
+                <a href='#!' className='text-reset'>
+                  AptiCrack - Weekly Test
+                </a>
+              </p>
+              <p>
+                <a href='#!' className='text-reset'>
+                  Workshops & Seminars
+                </a>
+              </p>
+              <p>
+                <a href='#!' className='text-reset'>
+                  Research & Projects
+                </a>
+              </p>
+            </MDBCol>
+
+            <MDBCol md="3" lg="2" xl="2" className='mx-auto mb-4'>
+              <h6 className='text-uppercase fw-bold mb-4'>Useful Links</h6>
+              <p>
+                <a href='#!' className='text-reset'>
                   About Us
                 </a>
-              </li>
-              <li>
-                <a href="/contact" className="text-light text-decoration-none">
+              </p>
+              <p>
+                <a href='#!' className='text-reset'>
+                  Events
+                </a>
+              </p>
+              <p>
+                <a href='#!' className='text-reset'>
                   Contact
                 </a>
-                <a href="https://twitter.com/" className="text-light me-3">
-                  <i className="bi bi-twitter"></i>
+              </p>
+              <p>
+                <a href='#!' className='text-reset'>
+                  Get Involved
                 </a>
-                <a href="https://facebook.com/" className="text-light me-3">
-                  <i className="bi bi-facebook"></i>
-                </a>
-                <a href="https://instagram.com/" className="text-light">
-                  <i className="bi bi-instagram"></i>
-                </a>
+              </p>
+            </MDBCol>
 
-              </li>
-              <li>
-                <a href="/terms" className="text-light text-decoration-none">
-                  Terms & Conditions
-                </a>
-              </li>
-              <li>
-                <a href="/privacy" className="text-light text-decoration-none">
-                  Privacy Policy
-                </a>
-              </li>
-            </ul>
-          </div>
+            <MDBCol md="4" lg="3" xl="3" className='mx-auto mb-md-0 mb-4'>
+              <h6 className='text-uppercase fw-bold mb-4'>Contact</h6>
+              <p>
+                <MDBIcon icon="home" className="me-2" />
+                Electrical Engineering Department, IIEST Shibpur, Howrah - 711103, India
+              </p>
+              <p>
+                <MDBIcon icon="envelope" className="me-3" />
+                ees@iiests.ac.in
+              </p>
+              <p>
+                <MDBIcon icon="phone" className="me-3" /> +91 98765 43210
+              </p>
+              <p>
+                <MDBIcon icon="print" className="me-3" /> +91 98765 43211
+              </p>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
+      </section>
 
-          {/* Contact Section */}
-          <div className="col-md-4 mb-3">
-            <h5>Contact Us</h5>
-            <p>
-              <i className="bi bi-geo-alt-fill me-2"></i>
-              Electrical Engineer's Society, IIEST Shibpur<br />
-              Howrah, India  <br />
-              Pin - 711103
-            </p>
-            <p>
-              <i className="bi bi-envelope-fill me-2"></i>
-              <a href="mailto:info@apticrack.com" className="text-light text-decoration-none">
-                info@apticrack.com
-              </a>
-            </p>
-            <p>
-              <i className="bi bi-telephone-fill me-2"></i>
-              +1-234-567-8900
-            </p>
-          </div>
-        </div>
-
-        {/* Footer Bottom Section */}
-        <div className="row">
-          <div className="col text-center mt-3">
-            <p className="mb-0">&copy; 2024 Electrical Engineer's Society. All Rights Reserved.</p>
-          </div>
-        </div>
+      <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
+        © {new Date().getFullYear()} Copyright:
+        <a className='text-reset fw-bold' href='https://ees.iiests.in/' target='_blank' rel='noopener noreferrer'>
+          EESIIESTS.IN
+        </a>
       </div>
-    </footer>
+    </MDBFooter>
   );
 }
-
-export default Footer;
