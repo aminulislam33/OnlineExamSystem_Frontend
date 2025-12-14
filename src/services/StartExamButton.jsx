@@ -18,7 +18,7 @@ export default function StartExamButton({ examId }) {
 
   const handleStartExam = () => {
     const userId = user._id;
-    const examAppURL = `https://exam.apticrack.com/start?userId=${userId}&examId=${examId}`;
+    const examAppURL = `https://exam.apticrack.eesiiests.org/start?userId=${userId}&examId=${examId}`;
 
     window.location.href = examAppURL;
 
