@@ -98,13 +98,10 @@ export default function App() {
               </p>
               <p>
                 <MDBIcon icon="envelope" className="me-3" />
-                ees@iiests.ac.in
+                secretary@eesiiests.org
               </p>
               <p>
-                <MDBIcon icon="phone" className="me-3" /> +91 98765 43210
-              </p>
-              <p>
-                <MDBIcon icon="print" className="me-3" /> +91 98765 43211
+                <MDBIcon icon="print" className="me-3" /> +91 9064767147
               </p>
             </MDBCol>
           </MDBRow>
@@ -113,8 +110,8 @@ export default function App() {
 
       <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
         © {new Date().getFullYear()} Copyright:
-        <a className='text-reset fw-bold' href='https://ees.iiests.in/' target='_blank' rel='noopener noreferrer'>
-          EESIIESTS.IN
+        <a className='text-reset fw-bold' href='https://eesiiests.org/' target='_blank' rel='noopener noreferrer'>
+          Electrical Engineers' Society, IIEST Shibpur
         </a>
       </div>
     </MDBFooter>
