@@ -1,155 +1,114 @@
-# Online Exam System Frontend
+# Online Exam System — Frontend (React)
 
-This project is the frontend part of the **Online Exam System** (OES) built with **React.js**. It allows students to register, log in, take exams, view results, and enables admins to manage questions and exams.
+This repository contains the React frontend for the Online Exam System (OES). It provides student-facing pages (authentication, dashboard, exam-taking, and results) and basic admin-related UI placeholders. The frontend talks to a backend REST API (configured via `REACT_APP_API_URL`).
 
-## Getting Started with Create React App
+## Quick facts
+- Bootstrapped with Create React App
+- React Router for routing
+- Context API for authentication state
+- Axios for API calls
+- Styling: Bootstrap + MDB React UI Kit + custom CSS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Getting started (development)
+1. Clone the repository and install dependencies:
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However, we understand that this tool wouldn't be useful if you couldn't customize it when you're ready for it.
-
-## Features
-
-- **Student Authentication**: Register, log in, and take exams.
-- **Admin Dashboard**: Manage questions, create and manage exams.
-- **Results Page**: View exam results with detailed performance analytics.
-- **Protected Routes**: Only authenticated users can access certain pages.
-- **Question Management**: Add, update, and delete exam questions.
-- **Real-time Exam Timer**: Countdown timer for exam duration.
-
-## Technology Stack
-
-- **Frontend**: React.js
-- **Routing**: React Router
-- **State Management**: Context API (for global state management)
-- **Styling**: CSS/SCSS (or any CSS framework you are using)
-- **API**: Axios (for making HTTP requests)
-
-## Folder Structure
-
-- **/src**
-  - **/components**: Reusable components (e.g., Navbar, QuestionCard)
-  - **/context**: React Context for global state (e.g., AuthContext, ExamContext)
-  - **/pages**: Page components for different routes (e.g., Home, Login, StudentDashboard)
-  - **/services**: Axios instance for API calls
-  - **/styles**: Stylesheets for components and pages
-  - **/utils**: Utility functions
-
-## Setup Instructions
-
-### 1. Clone the repository:
-
-```bash
+```powershell
 git clone <repo_url>
 cd OnlineExamSystem_Frontend
-```
-
-### 2. Install dependencies:
-
-```bash
 npm install
 ```
 
-### 3. Run the app:
+2. Set environment variables (example `.env` at project root):
 
-```bash
+```
+REACT_APP_API_URL=https://your-backend.example.com/api
+```
+
+3. Start dev server:
+
+```powershell
 npm start
 ```
 
-This will start the React development server, and you can view the app at [http://localhost:3000](http://localhost:3000).
+Open http://localhost:3000
 
-### 4. Deployment:
+## NPM scripts
+- `npm start` — start dev server
+- `npm run build` — production build
+- `npm test` — run tests
 
-For deployment, we suggest using platforms like **Vercel** or **Netlify**. To deploy to **Vercel**, follow these steps:
+## Important environment variables
+- `REACT_APP_API_URL` — Base URL used by `src/services/AxiosInstance.js` (required)
 
-1. Install Vercel CLI globally:
-   ```bash
-   npm i -g vercel
-   ```
+## Project structure (key files)
+- `src/App.js` — router and top-level layout
+- `src/context/AuthContext.jsx` — authentication context, token handling, user fetch
+- `src/services/AxiosInstance.js` — Axios instance with `baseURL` from env
+- `src/services/StartExamButton.jsx` — Start button (navigates to internal exam route)
+- `src/pages/StudentDashboard.jsx` — student dashboard; lists upcoming exams (`/exams/upcoming`)
+- `src/pages/ExamInterface.jsx` — route loader for starting an exam; hits `/exam-taking/start/:examId`
+- `src/pages/ExamInterfaceContent.jsx` — exam UI: questions, timer, localStorage persistence, submit
+- `src/pages/Login.jsx`, `src/pages/Signup.jsx`, `src/pages/Results.jsx` — authentication and results pages
+- `src/components` — shared UI components (Navbar, Footer)
 
-2. Run the following command in the root directory of your project:
-   ```bash
-   vercel
-   ```
+## Routing (important routes)
+- `/` — Home
+- `/user/login` — Login
+- `/user/signup` — Signup
+- `/student/dashboard` — Student dashboard (lists upcoming exams)
+- `/student/exam/start/:examId` — Exam interface (loads exam and renders exam UI)
+- `/student/dashboard/results` — Results
 
-   Follow the instructions to connect your GitHub repository and deploy your app.
+These routes are configured in `src/App.js`.
 
-### 5. Additional Configuration (for API calls):
+## API endpoints used by the frontend
+The frontend expects a REST API; the following endpoints are referenced in the code:
+- `POST /auth/login` — login (returns JWT)
+- `POST /profile` — fetch authenticated user profile (requires `Authorization: Bearer <token>`)
+- `GET /exams/upcoming` — list upcoming exams for dashboard
+- `POST /exam-taking/start/:examId` — start/lock the exam and return exam data
+- `POST /exam-taking/submit` — submit answers for grading
 
-Ensure your backend is running and accessible to make API calls. In the code, you can configure your **Axios instance** to point to the correct base URL of the backend API.
+All requests use the Axios instance in `src/services/AxiosInstance.js` which reads `REACT_APP_API_URL`.
 
-For example, in `AxiosInstance.js`:
-```javascript
-const api = axios.create({
-  baseURL: 'https://your-backend-url.com/api', // replace with your backend URL
-  headers: {
-    'Content-Type': 'application/json',
-  }
-});
-```
+## Exam flow (how it works in this frontend)
+1. Student clicks **Start Exam** on the dashboard (`StartExamButton`).
+2. The app navigates to `/student/exam/start/:examId` (served by `ExamInterface`).
+3. `ExamInterface` calls `POST /exam-taking/start/:examId` with the JWT in `Authorization` header to fetch exam data (questions, start/end times).
+4. `ExamInterfaceContent` initializes UI state:
+   - stores `exam_<examId>_endTime` in `localStorage` to persist timer across reloads
+   - stores `exam_<examId>_answers` in `localStorage` to persist answers
+   - runs a countdown timer and auto-submits when time expires
+5. On submit (manual or auto), `POST /exam-taking/submit` is called with `{ examId, answers }` and the token; on success the UI navigates back to student dashboard and clears localStorage keys.
 
-## Future Enhancements
+Local storage keys used
+- `authToken` — JWT token stored by `AuthContext` on login
+- `exam_<examId>_endTime` — exam end timestamp
+- `exam_<examId>_answers` — JSON array of saved answers
 
-- **Add Exam Feedback**: Allow students to give feedback on exams.
-- **Leaderboard**: Display top-performing students based on their scores.
-- **Real-Time Notifications**: Notify users when their results are available or when exams are about to start.
-- **Admin Role**: Implement different levels of access for admins, such as super admins and regular admins.
+## Authentication and token handling
+- `AuthContext` stores token in `localStorage` and validates expiration.
+- On valid token, `AuthContext` fetches user profile from `POST /profile` and exposes `user`, `token`, and helper methods via context.
 
-## Troubleshooting
+## Notes about StartExam behavior
+- Previous versions redirected users to an external exam host. The app now navigates to the internal route `/student/exam/start/:examId` so the exam runs inside this frontend (see `src/services/StartExamButton.jsx`). If you need to revert to an external host, modify that file.
 
-- If you face any issues while running the app, make sure:
-  - Your backend API is running and accessible.
-  - All environment variables are set correctly.
-  - Dependencies are installed (`npm install`).
+## Styling and UI
+- Bootstrap and `mdb-react-ui-kit` are used for buttons, modals and layout. Custom CSS lives under `src/styles`.
+
+## Testing
+- Unit and integration tests are not included by default. Use `react-scripts test` to run test runner if tests exist.
+
+## Deployment
+- Build with `npm run build` and deploy the `build/` folder to static hosting (e.g., Vercel, Netlify). Ensure `REACT_APP_API_URL` is set in the hosting environment.
 
 ## Contributing
+- Fork, branch, and open PRs. Keep changes focused and add tests where appropriate.
 
-If you'd like to contribute to this project, feel free to fork it and create a pull request. Here's how to contribute:
-
-1. Fork the repository.
-2. Clone your fork to your local machine.
-3. Create a new branch for your feature (`git checkout -b feature-name`).
-4. Commit your changes (`git commit -m 'Add new feature'`).
-5. Push to your fork (`git push origin feature-name`).
-6. Create a pull request from your fork's branch to the main repository.
+## Troubleshooting
+- If API requests fail, confirm `REACT_APP_API_URL` is correct and CORS is enabled on the backend.
+- If auth fails, check that `authToken` exists in localStorage and that it has not expired.
 
 ## License
-
-This project is open-source and available under the MIT License.
-```
+- MIT
 
