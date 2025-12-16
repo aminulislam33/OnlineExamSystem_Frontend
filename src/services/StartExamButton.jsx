@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   MDBBtn,
   MDBModal,
@@ -13,14 +14,14 @@ import { AuthContext } from '../context/AuthContext';
 export default function StartExamButton({ examId }) {
   const [centredModal, setCentredModal] = useState(false);
   const {user} = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const toggleOpen = () => setCentredModal(!centredModal);
 
   const handleStartExam = () => {
-    const userId = user._id;
-    const examAppURL = `https://exam.apticrack.eesiiests.org/start?userId=${userId}&examId=${examId}`;
-
-    window.location.href = examAppURL;
+    // Navigate to the internal exam interface route so the exam runs inside this app
+    setCentredModal(false);
+    navigate(`/student/exam/start/${examId}`);
 
   };
 
